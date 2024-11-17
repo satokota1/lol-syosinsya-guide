@@ -73,7 +73,7 @@ export default function GuidesEntrance() {
           <>
             <h1 className="text-3xl font-bold mt-8">LoL初心者虎の巻 - どのコースで始めますか？</h1>
             <div className="flex flex-col md:flex-row justify-center items-center gap-8 mt-12">
-              {/* のんびりコースへのリンク */}
+              {/* のんびりコースへのリンクa */}
               <div
                 onClick={() => setCourseType('nonbiri')}
                 className="relative inline-block cursor-pointer"
