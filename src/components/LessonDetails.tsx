@@ -12,21 +12,21 @@ const lessonsDetailsContent = {
   ),
   2: (
     <>
-      <h2>ホットキー</h2>
+      <h1>ホットキー</h1>
       <ul>
         <li>左クリックアタックムーブをON</li>
         <li><img src="/hidari.png" alt="左クリックアタックムーブ" style={{ margin: '3px 0' }} /></li>
         <li>左クリックをクリックするだけでアタックムーブが出来るようになります。</li>
         <li>通常の左クリックで行いたい操作をしたい場合は Shiftキーを押しながら左クリックをしないといけないので少し面倒な部分もあるが、圧倒的に有利設定なのでオン推奨。</li>
       </ul>
-  
-      <h2>インターフェース</h2>
+    
+      <h1>インターフェース</h1>
       <ul>
         <li>この辺は画像通りにしておけば問題ない、スペルコストを表示は絶対にオン</li>
         <li><img src="/inta1.png" alt="インターフェース設定" style={{ margin: '3px 0' }} /></li>
       </ul>
-  
-      <h2>ゲーム</h2>
+    
+      <h1>ゲーム</h1>
       <ul>
         <li>カメラロックモードは陣営別オフセットがおすすめ。敵陣側が少し広く見えるようになります。</li>
         <li>カーソル付近のターゲットを優先攻撃は絶対ON、ミスクリックで歩いて行っちゃう問題等が解決します。</li>
@@ -55,7 +55,11 @@ const lessonsDetailsContent = {
   ),
 };
 
-const LessonDetails = ({ lessonId }) => {
+type LessonDetailsProps = {
+  lessonId: number;
+};
+
+const LessonDetails = ({ lessonId }: LessonDetailsProps) => {
   return (
     <div>
       {lessonsDetailsContent[lessonId] || <p>詳細が見つかりません。</p>}
