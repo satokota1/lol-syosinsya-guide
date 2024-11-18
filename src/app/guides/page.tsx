@@ -94,7 +94,7 @@ export default function GuidesEntrance() {
               {courseType === 'yaruki' ? 'やる気コースの進行状況' : 'のんびりコースの進行状況'}
             </h2>
 
-            {/* 学習済みレッスンの表示/非表示を切り替えるボタン */}
+            {/* 学習済みレッスンの表示/非表示を切替ボタン */}
             <div className="mt-4">
               <button
                 onClick={() => setShowCompleted((prev) => !prev)}
