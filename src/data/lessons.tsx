@@ -8,7 +8,6 @@ export const lessons = [
         id: 2,
         title: "オススメ設定",
         description: "ホットキー、インターフェース、ゲーム設定に関するオススメ設定の詳細。",
-        videoUrl: ""
       },
       
     {

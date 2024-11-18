@@ -108,9 +108,6 @@ export default function GuidesEntrance() {
               {visibleLessons.map((lesson) => (
                 <div key={lesson.id} className="p-4 border rounded-lg mb-4 bg-white dark:bg-gray-800 text-black dark:text-white">
                   <h2 className="text-2xl font-semibold">{lesson.title}</h2>
-                  <div className="mt-2">
-                    <LessonDetails lessonId={lesson.id} />
-                  </div>
                   <div className="flex justify-center gap-4 mt-2">
                     <button
                       onClick={() => handleToggleLesson(lesson.id)}
