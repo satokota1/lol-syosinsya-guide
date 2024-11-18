@@ -1,28 +1,19 @@
 "use client";
-
+import { lessons, getFilteredLessons } from '../../data/lessons';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { db, auth } from '../../firebase';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { signOut } from 'firebase/auth';
-
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-
-const lessons = [
-  { id: 1, title: "基本操作を学ぼう", description: "LoLの基本操作を学びます。", details: "詳細な内容がここに含まれます。" },
-  { id: 2, title: "チャンピオンの役割", description: "チャンピオンの各役割を理解します。", details: "チャンピオンの役割についての詳細な内容。" },
-  { id: 3, title: "ミニオンのラストヒット", description: "効率的にミニオンを倒す方法を学びます。", details: "ミニオンのラストヒットのテクニック詳細。" },
-];
+import Image from 'next/image';
 
 export default function GuidesEntrance() {
   const [completedLessons, setCompletedLessons] = useState<number[]>([]);
   const [courseType, setCourseType] = useState<'yaruki' | 'nonbiri' | null>(null);
   const [user] = useAuthState(auth);
   const [activeLesson, setActiveLesson] = useState<number | null>(null);
+  const [showCompleted, setShowCompleted] = useState(true); // 学習済みレッスンを表示するかどうかの状態
 
   useEffect(() => {
     const fetchCompletedLessons = async () => {
@@ -59,11 +50,17 @@ export default function GuidesEntrance() {
     setActiveLesson((prev) => (prev === lessonId ? null : lessonId));
   };
 
-  const handleSignOut = async () => {
-    await signOut(auth);
-  };
+  // コースタイプに基づいてフィルタリングされたレッスンを取得
+  const filteredLessons = getFilteredLessons(courseType);
 
-  const filteredLessons = courseType === 'nonbiri' ? lessons.filter((lesson) => [1, 3].includes(lesson.id)) : lessons;
+  // 表示するレッスンをフィルタリング（学習済みのものを非表示にする場合のロジック）
+  const visibleLessons = filteredLessons.filter(lesson => {
+    if (showCompleted) {
+      return true; // 学習済みのレッスンを表示
+    } else {
+      return !completedLessons.includes(lesson.id); // 学習済みのレッスンを非表示
+    }
+  });
 
   return (
     <>
@@ -73,7 +70,7 @@ export default function GuidesEntrance() {
           <>
             <h1 className="text-3xl font-bold mt-8">LoL初心者虎の巻 - どのコースで始めますか？</h1>
             <div className="flex flex-col md:flex-row justify-center items-center gap-8 mt-12">
-              {/* のんびりコースへのリンクa */}
+              {/* のんびりコースへのリンク */}
               <div
                 onClick={() => setCourseType('nonbiri')}
                 className="relative inline-block cursor-pointer"
@@ -95,8 +92,19 @@ export default function GuidesEntrance() {
             <h2 className="text-3xl font-bold mt-8">
               {courseType === 'yaruki' ? 'やる気コースの進行状況' : 'のんびりコースの進行状況'}
             </h2>
+
+            {/* 学習済みレッスンの表示/非表示を切り替えるボタン */}
             <div className="mt-4">
-              {filteredLessons.map((lesson) => (
+              <button
+                onClick={() => setShowCompleted((prev) => !prev)}
+                className="bg-green-500 text-white py-2 px-4 rounded"
+              >
+                {showCompleted ? '学習済みレッスンを非表示にする' : '学習済みレッスンを表示する'}
+              </button>
+            </div>
+
+            <div className="mt-4">
+              {visibleLessons.map((lesson) => (
                 <div key={lesson.id} className="p-4 border rounded-lg mb-4">
                   <h2 className="text-2xl font-semibold">{lesson.title}</h2>
                   <p className="mt-2">{lesson.description}</p>
@@ -126,7 +134,7 @@ export default function GuidesEntrance() {
                   {activeLesson === lesson.id && (
                     <div className="mt-4 p-4 border rounded-lg bg-gray-100">
                       <h3 className="text-xl font-bold">{lesson.title} - 詳細</h3>
-                      <p className="mt-2">{lesson.details}</p>
+                      <p className="mt-2" dangerouslySetInnerHTML={{ __html: lesson.details }} />
                     </div>
                   )}
                 </div>
