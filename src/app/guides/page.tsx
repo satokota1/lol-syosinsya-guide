@@ -133,8 +133,22 @@ export default function GuidesEntrance() {
                   </div>
                   {activeLesson === lesson.id && (
                     <div className="mt-4 p-4 border rounded-lg bg-gray-100 dark:bg-gray-700">
-                      <h3 className="text-xl font-bold">{lesson.title} - 詳細</h3>
-                      <p className="mt-2" dangerouslySetInnerHTML={{ __html: lesson.details }} />
+                      <h3 className="text-xl font-bold">学習内容</h3>
+                      {lesson.videoUrl ? (
+                        <div className="flex justify-center">
+                          <iframe
+                            width="560"
+                            height="315"
+                            src={`https://www.youtube.com/embed/${new URL(lesson.videoUrl).searchParams.get("v")}`}
+                            title="YouTube video player"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          ></iframe>
+                        </div>
+                      ) : (
+                        <p className="mt-2" dangerouslySetInnerHTML={{ __html: lesson.details }} />
+                      )}
                     </div>
                   )}
                 </div>

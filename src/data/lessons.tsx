@@ -1,10 +1,10 @@
 export const lessons = [
     {
-      id: 1,
-      title: "基本用語",
-      description: "LoLにおける基本的な用語を学びます。",
-      details: "<p>基本的な用語についての詳細な説明です。</p>",
-    },
+        id: 1,
+        title: "基本用語",
+        description: "LoLにおける基本的な用語を学びます。",
+        details: `<a href="https://www.esports.net/jp/guides/lol-terms-explained/">外部サイトですが綺麗にまとまってるのでこちらを参照</a>`,
+      },
     {
       id: 2,
       title: "オススメ設定",
@@ -84,11 +84,14 @@ export const lessons = [
       details: "<p>スキルショットの避け方と当て方、スペーシングに関する詳細な説明です。</p>",
     },
     {
-      id: 15,
-      title: "三角形と平行線理論",
-      description: "戦闘時の位置取りに関する理論を学びます。",
-      details: "<p>三角形と平行線理論に関する詳細な説明です。</p>",
-    },
+        id: 15,
+        title: "三角形と平行線理論",
+        description: "CoreJJの伝説の動画です。BOTレーンでこれを知らないのは犯罪レベル！！日本語字幕つけれるのでつけてね",
+        details: "<p>この動画を見て三角形と平行線理論を学んでください。</p>",
+        videoUrl: "https://www.youtube.com/watch?v=v-ec5astbE0",
+      },
+      
+           
     {
       id: 16,
       title: "集団戦 前から？後ろから？ゆっくり？",
