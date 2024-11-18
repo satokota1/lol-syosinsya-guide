@@ -105,7 +105,7 @@ export default function GuidesEntrance() {
 
             <div className="mt-4">
               {visibleLessons.map((lesson) => (
-                <div key={lesson.id} className="p-4 border rounded-lg mb-4">
+                <div key={lesson.id} className="p-4 border rounded-lg mb-4 bg-white dark:bg-gray-800 text-black dark:text-white">
                   <h2 className="text-2xl font-semibold">{lesson.title}</h2>
                   <p className="mt-2">{lesson.description}</p>
                   <div className="flex justify-center gap-4 mt-2">
@@ -132,7 +132,7 @@ export default function GuidesEntrance() {
                     )}
                   </div>
                   {activeLesson === lesson.id && (
-                    <div className="mt-4 p-4 border rounded-lg bg-gray-100">
+                    <div className="mt-4 p-4 border rounded-lg bg-gray-100 dark:bg-gray-700">
                       <h3 className="text-xl font-bold">{lesson.title} - 詳細</h3>
                       <p className="mt-2" dangerouslySetInnerHTML={{ __html: lesson.details }} />
                     </div>
