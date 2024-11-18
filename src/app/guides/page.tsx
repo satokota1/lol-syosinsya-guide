@@ -7,6 +7,7 @@ import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Image from 'next/image';
+import LessonDetails from '../../components/LessonDetails';
 
 export default function GuidesEntrance() {
   const [completedLessons, setCompletedLessons] = useState<number[]>([]);
@@ -65,7 +66,7 @@ export default function GuidesEntrance() {
   return (
     <>
       <Header />
-      <div className="container mx-auto px-4 text-center">
+      <div className="container mx-auto px-4 text-left">
         {!courseType && (
           <>
             <h1 className="text-3xl font-bold mt-8">LoL初心者虎の巻 - どのコースで始めますか？</h1>
@@ -75,14 +76,14 @@ export default function GuidesEntrance() {
                 onClick={() => setCourseType('nonbiri')}
                 className="relative inline-block cursor-pointer"
               >
-                <Image src="/nonbiri.png" alt="のんびりコース" width={300} height={200} priority />
+                <Image src="/nonbiri.png" alt="のんびりコース" width={300} height={200} priority style={{ margin: '3px 0' }} />
               </div>
               {/* やる気コースへのリンク */}
               <div
                 onClick={() => setCourseType('yaruki')}
                 className="relative inline-block cursor-pointer"
               >
-                <Image src="/yaruki.png" alt="やる気コース" width={300} height={200} priority />
+                <Image src="/yaruki.png" alt="やる気コース" width={300} height={200} priority style={{ margin: '3px 0' }} />
               </div>
             </div>
           </>
@@ -107,7 +108,9 @@ export default function GuidesEntrance() {
               {visibleLessons.map((lesson) => (
                 <div key={lesson.id} className="p-4 border rounded-lg mb-4 bg-white dark:bg-gray-800 text-black dark:text-white">
                   <h2 className="text-2xl font-semibold">{lesson.title}</h2>
-                  <p className="mt-2">{lesson.description}</p>
+                  <div className="mt-2">
+                    <LessonDetails lessonId={lesson.id} />
+                  </div>
                   <div className="flex justify-center gap-4 mt-2">
                     <button
                       onClick={() => handleToggleLesson(lesson.id)}
@@ -133,22 +136,7 @@ export default function GuidesEntrance() {
                   </div>
                   {activeLesson === lesson.id && (
                     <div className="mt-4 p-4 border rounded-lg bg-gray-100 dark:bg-gray-700">
-                      <h3 className="text-xl font-bold">学習内容</h3>
-                      {lesson.videoUrl ? (
-                        <div className="flex justify-center">
-                          <iframe
-                            width="560"
-                            height="315"
-                            src={`https://www.youtube.com/embed/${new URL(lesson.videoUrl).searchParams.get("v")}`}
-                            title="YouTube video player"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                          ></iframe>
-                        </div>
-                      ) : (
-                        <p className="mt-2" dangerouslySetInnerHTML={{ __html: lesson.details }} />
-                      )}
+                      <LessonDetails lessonId={lesson.id} />
                     </div>
                   )}
                 </div>
