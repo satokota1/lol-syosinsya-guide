@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth } from '../firebase';
+import { lessons } from '../data/lessons'; // lessons をインポート
+
 const Header = dynamic(() => import('../components/Header'), { ssr: false });
 const Footer = dynamic(() => import('../components/Footer'), { ssr: false });
 
@@ -15,7 +17,7 @@ export default function HomePage() {
   const [user] = useAuthState(auth);
 
   const [completedLessons, setCompletedLessons] = useState(0);
-  const totalLessons = 3; // lessons.length に相当
+  const totalLessons = lessons.length; // lessons の数を動的に取得
 
   useEffect(() => {
     const fetchProgress = async () => {
