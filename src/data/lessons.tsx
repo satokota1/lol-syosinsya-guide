@@ -14,6 +14,8 @@ export const lessons = [
       id: 3,    
       title: "勝利条件",
       description: "LoLの勝利条件について理解を深めます。",
+      videoUrl: "https://www.youtube.com/watch?v=i4H7t2kJTIM",
+   
     },
     {
       id: 4,
@@ -74,7 +76,6 @@ export const lessons = [
         id: 15,
         title: "三角形と平行線理論",
         description: "CoreJJの伝説の動画です。BOTレーンでこれを知らないのは犯罪レベル！！日本語字幕つけれるのでつけてね",
-        videoUrl: "https://www.youtube.com/watch?v=v-ec5astbE0",
       },
       
            
